@@ -18,20 +18,18 @@ func solution_lvl1(puzzle string) (answer interface{}) {
 		inp = append(inp, ai)
 	}
 
-	for i, a := range inp {
-		for j, b := range inp {
-			if i == j {
-				continue
+	for i := 0; i < len(inp); i++ {
+		for j := i+1;j< len(inp); j++ {
+			if inp[i] + inp[j] == 2020 {
+				answer = inp[i] * inp[j]
+				break
 			}
-			if a + b == 2020 {
-				answer = a*b
+			if answer != nil {
 				break
 			}
 		}
-		if answer != nil {
-			break
-		}
 	}
+
 	return
 }
 
@@ -43,23 +41,20 @@ func solution_lvl2(puzzle string) (answer interface{}) {
 		inp = append(inp, ai)
 	}
 
-	for i, a := range inp {
-		for j, b := range inp {
-			for k, c := range inp {
-				if i == j || i == k || j == k {
-					continue
+	for i := 0; i < len(inp); i++ {
+		for j := i+1;j< len(inp); j++ {
+			for k := j+1;k< len(inp); k++ {
+				if inp[i] + inp[j] + inp[k] == 2020 {
+					answer = inp[i] * inp[j] * inp[k]
+					break
 				}
-				if a + b + c == 2020 {
-					answer = a*b*c
+				if answer != nil {
 					break
 				}
 			}
 			if answer != nil {
 				break
 			}
-		}
-		if answer != nil {
-			break
 		}
 	}
 
