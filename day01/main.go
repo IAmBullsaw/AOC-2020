@@ -7,6 +7,7 @@ import (
 	"time"
 	"strings"
 	"strconv"
+	"sort"
 )
 
 
@@ -18,15 +19,20 @@ func solution_lvl1(puzzle string) (answer interface{}) {
 		inp = append(inp, ai)
 	}
 
-	for i := 0; i < len(inp); i++ {
-		for j := i+1;j< len(inp); j++ {
-			if inp[i] + inp[j] == 2020 {
-				answer = inp[i] * inp[j]
-				break
-			}
-			if answer != nil {
-				break
-			}
+	sort.Ints(inp)
+
+	i := 0
+	j := len(inp)-1
+	for i<=j {
+		target := 2020
+		sum := inp[i]+inp[j]
+		if sum == target {
+			answer = inp[i]*inp[j]
+			break
+		} else if sum < target {
+			i++
+		} else {
+			j--
 		}
 	}
 
@@ -41,20 +47,25 @@ func solution_lvl2(puzzle string) (answer interface{}) {
 		inp = append(inp, ai)
 	}
 
+	sort.Ints(inp)
+
 	for i := 0; i < len(inp); i++ {
-		for j := i+1;j< len(inp); j++ {
-			for k := j+1;k< len(inp); k++ {
-				if inp[i] + inp[j] + inp[k] == 2020 {
-					answer = inp[i] * inp[j] * inp[k]
-					break
-				}
-				if answer != nil {
-					break
-				}
-			}
-			if answer != nil {
+		j := i+1
+		k := len(inp)-1
+		for j<=k {
+			target := 2020
+			sum := inp[i]+inp[j]+inp[k]
+			if sum == target {
+				answer = inp[i]*inp[j]*inp[k]
 				break
+			} else if sum < target {
+				j++
+			} else {
+				k--
 			}
+		}
+		if answer != nil {
+			break
 		}
 	}
 
@@ -98,7 +109,7 @@ func main() {
 		}
 
 		lvl1, lvl2 := solution(strings.Join(puzzle_input[:], "\n"))
-		fmt.Printf("Level 1: %v\nLevel 2: %v\n", lvl1, lvl2)
+		fmt.Printf("\nAnswer\n  Level 1: %v\n  Level 2: %v\n", lvl1, lvl2)
 
 	} else {
 		// to be able to automate
