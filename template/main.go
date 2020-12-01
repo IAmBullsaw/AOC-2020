@@ -56,7 +56,7 @@ func main() {
 		}
 
 		lvl1, lvl2 := solution(strings.Join(puzzle_input[:], "\n"))
-		fmt.Printf("Level 1: %v\nLevel 2: %v\n", lvl1, lvl2)
+		fmt.Printf("\nAnswer\n  Level 1: %v\n  Level 2: %v\n", lvl1, lvl2)
 
 	} else {
 		// to be able to automate
