@@ -8,13 +8,36 @@ import (
 	"strings"
 )
 
-// solution return answers for level 1 and 2
+
+// solution_lvl1 return answers for level 1
+func solution_lvl1(puzzle string) (answer interface{}) {
+	return
+}
+
+// solution _lvl2 return answers for level 2
+func solution_lvl2(puzzle string) (answer interface{}) {
+	return
+}
+
+
+// solution return answers for level 1 and 2 and times each execution
 func solution(puzzle string) (interface{}, interface{}) {
-	return 1, 2
+
+	fmt.Println("Solving puzzle...")
+	start := time.Now()
+	lvl1 := solution_lvl1(puzzle)
+	elapsed := time.Since(start)
+	fmt.Printf("  Level 1 took %s\n", elapsed)
+
+	start = time.Now()
+	lvl2 := solution_lvl2(puzzle)
+	elapsed = time.Since(start)
+	fmt.Printf("  Level 2 took %s\n", elapsed)
+
+	return lvl1, lvl2
 }
 
 func main() {
-
 
 	test_outcome := testcases.Execute(solution)
 	if test_outcome {
@@ -32,12 +55,8 @@ func main() {
 			fmt.Println("Error reading from stdin: ",scanner.Err())
 		}
 
-		start := time.Now()
 		lvl1, lvl2 := solution(strings.Join(puzzle_input[:], "\n"))
-		elapsed := time.Since(start)
-
 		fmt.Printf("Level 1: %v\nLevel 2: %v\n", lvl1, lvl2)
-		fmt.Printf("Program took %s\n", elapsed)
 
 	} else {
 		// to be able to automate

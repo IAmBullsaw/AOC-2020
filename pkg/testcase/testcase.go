@@ -13,7 +13,8 @@ type TestCase struct {
 
 func (tcs TestCases) Execute(solution func(string) (interface{}, interface{})) (total_pass bool) {
 	total_pass = true
-	for _, test := range tcs {
+	for i, test := range tcs {
+		fmt.Println("Test case:", i + 1)
 		resultLvl1, resultLvl2 := solution(test.Input)
 		lvl1, expectedLvl1, lvl2, expectedLvl2 := fmt.Sprint(resultLvl1), fmt.Sprint(test.ExpectedLvl1), fmt.Sprint(resultLvl2), fmt.Sprint(test.ExpectedLvl2)
 		passedLvl1 := lvl1 == expectedLvl1 || expectedLvl1 == ""
@@ -22,7 +23,9 @@ func (tcs TestCases) Execute(solution func(string) (interface{}, interface{})) (
 
 		if !passed {
 			total_pass = false
-			fmt.Println("test case: ", test.Input)
+			fmt.Println("Test case:", i + 1, "Failed.")
+		} else {
+			fmt.Println("Test case:", i + 1, "Passed.")
 		}
 		if !passedLvl1 {
 			fmt.Println("  Level 1: ", lvl1, " expected: ", expectedLvl1)
