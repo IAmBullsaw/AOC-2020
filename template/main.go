@@ -4,7 +4,6 @@ import (
 	"github.com/IAmBullsaw/AOC-2020/pkg/execution"
 )
 
-
 // solution_lvl1 return answers for level 1
 func solution_lvl1(puzzle string) (answer interface{}) {
 	return

@@ -1,8 +1,8 @@
 package inp
 
 import (
-	"strings"
 	"strconv"
+	"strings"
 )
 
 // ToInts return a slice of ints from passed in text

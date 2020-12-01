@@ -1,11 +1,11 @@
 package main
 
 import (
+	"sort"
+
 	"github.com/IAmBullsaw/AOC-2020/pkg/execution"
 	"github.com/IAmBullsaw/AOC-2020/pkg/inp"
-	"sort"
 )
-
 
 // solution_lvl1 return answers for level 1
 func solution_lvl1(puzzle string) (answer interface{}) {
@@ -13,12 +13,12 @@ func solution_lvl1(puzzle string) (answer interface{}) {
 	sort.Ints(inp)
 
 	i := 0
-	j := len(inp)-1
-	for i<=j {
+	j := len(inp) - 1
+	for i <= j {
 		target := 2020
-		sum := inp[i]+inp[j]
+		sum := inp[i] + inp[j]
 		if sum == target {
-			answer = inp[i]*inp[j]
+			answer = inp[i] * inp[j]
 			break
 		} else if sum < target {
 			i++
@@ -36,13 +36,13 @@ func solution_lvl2(puzzle string) (answer interface{}) {
 	sort.Ints(inp)
 
 	for i := 0; i < len(inp); i++ {
-		j := i+1
-		k := len(inp)-1
-		for j<=k {
+		j := i + 1
+		k := len(inp) - 1
+		for j <= k {
 			target := 2020
-			sum := inp[i]+inp[j]+inp[k]
+			sum := inp[i] + inp[j] + inp[k]
 			if sum == target {
-				answer = inp[i]*inp[j]*inp[k]
+				answer = inp[i] * inp[j] * inp[k]
 				break
 			} else if sum < target {
 				j++

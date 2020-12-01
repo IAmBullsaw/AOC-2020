@@ -1,29 +1,30 @@
 package execution
 
 import (
-	tc "github.com/IAmBullsaw/AOC-2020/pkg/testcase"
-	"os"
 	"bufio"
 	"fmt"
-	"time"
+	"os"
 	"strings"
+	"time"
+
+	tc "github.com/IAmBullsaw/AOC-2020/pkg/testcase"
 )
 
-func Run(solution_lvl1 func(string) (interface{}), solution_lvl2 func(string) (interface{}), testcases tc.TestCases) {
+func Run(solution_lvl1 func(string) interface{}, solution_lvl2 func(string) interface{}, testcases tc.TestCases) {
 	test_outcome := testcases.Execute(solution_lvl1, solution_lvl2)
 	if test_outcome {
 		// If the tests passed, we check our solution to the puzzle!
 
 		puzzle_input := make([]string, 0)
 
- 		// read from stdin
+		// read from stdin
 		scanner := bufio.NewScanner(os.Stdin)
 		for scanner.Scan() {
 			text := scanner.Text()
 			puzzle_input = append(puzzle_input, text)
 		}
 		if scanner.Err() != nil {
-			fmt.Println("Error reading from stdin: ",scanner.Err())
+			fmt.Println("Error reading from stdin: ", scanner.Err())
 		}
 
 		puzzle := strings.Join(puzzle_input[:], "\n")
@@ -45,5 +46,4 @@ func Run(solution_lvl1 func(string) (interface{}), solution_lvl2 func(string) (i
 		// to be able to automate
 		os.Exit(1)
 	}
-
 }
