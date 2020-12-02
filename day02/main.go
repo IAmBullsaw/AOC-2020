@@ -18,15 +18,10 @@ func solution_lvl1(puzzle string) interface{} {
 
 		lo, _ := strconv.Atoi(lohi[0])
 		hi, _ := strconv.Atoi(lohi[1])
-		b := inp[i+1][0]
+		b := string(inp[i+1][0])
 		pwd := inp[i+2]
 
-		count := 0
-		for i := 0; i < len(pwd); i++ {
-			if pwd[i] == b {
-				count++
-			}
-		}
+		count := strings.Count(pwd, b)
 		if cmp.InBounds(lo, count, hi, true) == cmp.Within {
 			answer++
 		}
