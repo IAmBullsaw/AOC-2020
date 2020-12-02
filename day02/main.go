@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"strings"
 
+	cmp "github.com/IAmBullsaw/AOC-2020/pkg/compare"
 	"github.com/IAmBullsaw/AOC-2020/pkg/execution"
 	ip "github.com/IAmBullsaw/AOC-2020/pkg/inp"
 )
@@ -26,7 +27,7 @@ func solution_lvl1(puzzle string) interface{} {
 				count++
 			}
 		}
-		if lo <= count && count <= hi {
+		if cmp.InBounds(lo, count, hi, true) == cmp.Within {
 			answer++
 		}
 	}
