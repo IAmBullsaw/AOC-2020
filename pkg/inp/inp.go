@@ -5,6 +5,13 @@ import (
 	"strings"
 )
 
+func ToSlice(text string) (result []string) {
+	for _, a := range strings.Fields(text) {
+		result = append(result, a)
+	}
+	return
+}
+
 // ToInts return a slice of ints from passed in text
 func ToInts(text string) (result []int) {
 	for _, a := range strings.Fields(text) {
