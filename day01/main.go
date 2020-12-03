@@ -8,7 +8,7 @@ import (
 )
 
 // solution_lvl1 return answers for level 1
-func solution_lvl1(puzzle string) (answer interface{}) {
+func solution_lvl1(puzzle string) (answer int) {
 	inp := inp.ToInts(puzzle)
 	sort.Ints(inp)
 
@@ -31,10 +31,10 @@ func solution_lvl1(puzzle string) (answer interface{}) {
 }
 
 // solution_lvl2 return answers for level 2
-func solution_lvl2(puzzle string) (answer interface{}) {
+func solution_lvl2(puzzle string) (answer int) {
 	inp := inp.ToInts(puzzle)
 	sort.Ints(inp)
-
+	answer = -1
 	for i := 0; i < len(inp); i++ {
 		j := i + 1
 		k := len(inp) - 1
@@ -50,7 +50,7 @@ func solution_lvl2(puzzle string) (answer interface{}) {
 				k--
 			}
 		}
-		if answer != nil {
+		if answer != -1 {
 			break
 		}
 	}

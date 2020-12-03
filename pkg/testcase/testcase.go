@@ -11,7 +11,7 @@ type TestCase struct {
 	ExpectedLvl1, ExpectedLvl2 interface{}
 }
 
-func (tcs TestCases) Execute(solution_lvl1 func(string) interface{}, solution_lvl2 func(string) interface{}) (total_pass bool) {
+func (tcs TestCases) Execute(solution_lvl1 func(string) int, solution_lvl2 func(string) int) (total_pass bool) {
 	total_pass = true
 	for i, test := range tcs {
 		fmt.Println("Test case:", i+1)

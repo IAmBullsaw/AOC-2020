@@ -10,8 +10,7 @@ import (
 )
 
 // solution_lvl1 return answers for level 1
-func solution_lvl1(puzzle string) interface{} {
-	answer := 0
+func solution_lvl1(puzzle string) (answer int) {
 	inp := ip.ToSlice(puzzle)
 	for i := 0; i < len(inp); i += 3 {
 		lohi := strings.Split(inp[i], "-")
@@ -26,12 +25,11 @@ func solution_lvl1(puzzle string) interface{} {
 			answer++
 		}
 	}
-	return answer
+	return
 }
 
 // solution _lvl2 return answers for level 2
-func solution_lvl2(puzzle string) (answer interface{}) {
-	valid := 0
+func solution_lvl2(puzzle string) (answer int) {
 	inp := ip.ToSlice(puzzle)
 	for i := 0; i < len(inp); i += 3 {
 		lohi := strings.Split(inp[i], "-")
@@ -44,11 +42,10 @@ func solution_lvl2(puzzle string) (answer interface{}) {
 		pwd := inp[i+2]
 
 		if (pwd[p1] == b || pwd[p2] == b) && pwd[p1] != pwd[p2] {
-			valid++
+			answer++
 		}
 
 	}
-	answer = valid
 	return
 }
 

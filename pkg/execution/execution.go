@@ -10,7 +10,7 @@ import (
 	tc "github.com/IAmBullsaw/AOC-2020/pkg/testcase"
 )
 
-func Run(solution_lvl1 func(string) interface{}, solution_lvl2 func(string) interface{}, testcases tc.TestCases) {
+func Run(solution_lvl1 func(string) int, solution_lvl2 func(string) int, testcases tc.TestCases) {
 	test_outcome := testcases.Execute(solution_lvl1, solution_lvl2)
 	if test_outcome {
 		// If the tests passed, we check our solution to the puzzle!
