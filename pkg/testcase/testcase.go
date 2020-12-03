@@ -11,19 +11,19 @@ type TestCase struct {
 	ExpectedLvl1, ExpectedLvl2 interface{}
 }
 
-func (tcs TestCases) Execute(solution_lvl1 func(string) int, solution_lvl2 func(string) int) (total_pass bool) {
-	total_pass = true
+func (tcs TestCases) Execute(solutionLvl1 func(string) int, solutionLvl2 func(string) int) (totalPass bool) {
+	totalPass = true
 	for i, test := range tcs {
 		fmt.Println("Test case:", i+1)
-		resultLvl1 := solution_lvl1(test.Input)
-		resultLvl2 := solution_lvl2(test.Input)
+		resultLvl1 := solutionLvl1(test.Input)
+		resultLvl2 := solutionLvl2(test.Input)
 		lvl1, expectedLvl1, lvl2, expectedLvl2 := fmt.Sprint(resultLvl1), fmt.Sprint(test.ExpectedLvl1), fmt.Sprint(resultLvl2), fmt.Sprint(test.ExpectedLvl2)
 		passedLvl1 := lvl1 == expectedLvl1 || expectedLvl1 == ""
 		passedLvl2 := lvl2 == expectedLvl2 || expectedLvl2 == ""
 		passed := passedLvl1 && passedLvl2
 
 		if !passed {
-			total_pass = false
+			totalPass = false
 			fmt.Println("Test case:", i+1, "Failed.")
 		} else {
 			fmt.Println("Test case:", i+1, "Passed.")
