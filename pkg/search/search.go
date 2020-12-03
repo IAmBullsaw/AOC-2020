@@ -10,7 +10,7 @@ func Int(values []int, target int) (found int) {
 	return
 }
 
-// Int returns nil or the index to the int in values which satisfies f()
+// IntFunc returns nil or the index to the int in values which satisfies f()
 func IntFunc(values []int, f func(int) bool) (found int) {
 	for i, v := range values {
 		if f(v) {
