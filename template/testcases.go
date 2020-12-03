@@ -6,8 +6,8 @@ import (
 
 var testcases = tc.TestCases{
 	{
-		`1`, // input
-		`1`, // expected lvl 1
-		`2`, // expected lvl 2
+		Input:        `1`,
+		ExpectedLvl1: `1`,
+		ExpectedLvl2: `2`,
 	},
 }

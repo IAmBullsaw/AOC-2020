@@ -6,10 +6,10 @@ import (
 
 var testcases = tc.TestCases{
 	{
-		`1-3 a: abcde
+		Input: `1-3 a: abcde
 1-3 b: cdefg
 2-9 c: ccccccccc`, // input
-		`2`, // expected lvl 1
-		`1`, // expected lvl 2
+		ExpectedLvl1: `2`, // expected lvl 1
+		ExpectedLvl2: `1`, // expected lvl 2
 	},
 }
