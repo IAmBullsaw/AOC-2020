@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"regexp"
 
@@ -40,19 +42,22 @@ var Fields = []string{
 func solutionLvl1(puzzle string) (answer int) {
 	pps := getInput(puzzle)
 
+	start := time.Now()
+PassportLoop:
 	for _, passport := range pps {
 		if len(passport) < 7 || (len(passport) == 7 && passport["cid"] != "") {
 			continue
 		}
 		for _, f := range Fields {
 			if passport[f] == "" {
-				goto end1
+				continue PassportLoop
 			}
 		}
 		answer++
-	end1:
 	}
 
+	elapsed := time.Since(start)
+	fmt.Printf("  Without input time 1 took %s\n", elapsed)
 	return
 }
 
@@ -101,6 +106,8 @@ var Policies = map[string]Policy{
 func solutionLvl2(puzzle string) (answer int) {
 	pps := getInput(puzzle)
 
+	start := time.Now()
+PassportLoop:
 	for _, passport := range pps {
 		if len(passport) < 7 || (len(passport) == 7 && passport["cid"] != "") {
 			continue
@@ -108,14 +115,15 @@ func solutionLvl2(puzzle string) (answer int) {
 			for key, policy := range Policies {
 				if passport[key] == "" ||
 					!(policy.Rule.MatchString(passport[key]) && policy.Validate(passport[key])) {
-					goto end2
+					continue PassportLoop
 				}
 			}
 		}
 		answer++
-	end2:
 	}
 
+	elapsed := time.Since(start)
+	fmt.Printf("  Without input time 2 took %s\n", elapsed)
 	return
 }
 
