@@ -25,36 +25,32 @@ func getInput(puzzle string) (pps []map[string]string) {
 	return
 }
 
+// Fields should all be in a Passport
+var Fields = []string{
+	"byr",
+	"iyr",
+	"eyr",
+	"hgt",
+	"hcl",
+	"ecl",
+	"pid",
+}
+
 // solutionLvl1 return answers for level 1
 func solutionLvl1(puzzle string) (answer int) {
 	pps := getInput(puzzle)
 
-	fields := []string{
-		"byr",
-		"iyr",
-		"eyr",
-		"hgt",
-		"hcl",
-		"ecl",
-		"pid",
-		"cid",
-	}
-
 	for _, passport := range pps {
-		valid := true
-		for _, f := range fields {
+		if len(passport) < 7 || (len(passport) == 7 && passport["cid"] != "") {
+			continue
+		}
+		for _, f := range Fields {
 			if passport[f] == "" {
-				if f != "cid" {
-					valid = false
-					break
-				}
-
+				goto end1
 			}
 		}
-		if valid {
-			answer++
-		}
-
+		answer++
+	end1:
 	}
 
 	return
@@ -106,19 +102,18 @@ func solutionLvl2(puzzle string) (answer int) {
 	pps := getInput(puzzle)
 
 	for _, passport := range pps {
-		valid := true
-		for key, policy := range Policies {
-			if len(passport) < 7 ||
-				(len(passport) == 7 && passport["cid"] != "") ||
-				passport[key] == "" ||
-				!(policy.Rule.MatchString(passport[key]) && policy.Validate(passport[key])) {
-				valid = false
-				break
+		if len(passport) < 7 || (len(passport) == 7 && passport["cid"] != "") {
+			continue
+		} else {
+			for key, policy := range Policies {
+				if passport[key] == "" ||
+					!(policy.Rule.MatchString(passport[key]) && policy.Validate(passport[key])) {
+					goto end2
+				}
 			}
 		}
-		if valid {
-			answer++
-		}
+		answer++
+	end2:
 	}
 
 	return
