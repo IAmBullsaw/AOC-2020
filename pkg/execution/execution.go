@@ -10,7 +10,11 @@ import (
 	tc "github.com/IAmBullsaw/AOC-2020/pkg/testcase"
 )
 
-func Run(solution_lvl1 func(string) int, solution_lvl2 func(string) int, testcases tc.TestCases) {
+func Run(solution_lvl1 func(string, map[string]int) int,
+	lvl1Parameters map[string]int,
+	solution_lvl2 func(string, map[string]int) int,
+	lvl2Parameters map[string]int,
+	testcases tc.TestCases) {
 	test_outcome := testcases.Execute(solution_lvl1, solution_lvl2)
 	if test_outcome {
 		// If the tests passed, we check our solution to the puzzle!
@@ -31,12 +35,12 @@ func Run(solution_lvl1 func(string) int, solution_lvl2 func(string) int, testcas
 
 		fmt.Println("Solving puzzle...")
 		start := time.Now()
-		lvl1 := solution_lvl1(puzzle)
+		lvl1 := solution_lvl1(puzzle, lvl1Parameters)
 		elapsed := time.Since(start)
 		fmt.Printf("  Level 1 took %s\n", elapsed)
 
 		start = time.Now()
-		lvl2 := solution_lvl2(puzzle)
+		lvl2 := solution_lvl2(puzzle, lvl2Parameters)
 		elapsed = time.Since(start)
 		fmt.Printf("  Level 2 took %s\n", elapsed)
 

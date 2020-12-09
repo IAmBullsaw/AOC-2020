@@ -7,6 +7,7 @@ import (
 var testcases = tc.TestCases{
 	{
 		Input:        `1`,
+		Parameters:   map[string]int{},
 		ExpectedLvl1: `1`,
 		ExpectedLvl2: `2`,
 	},
