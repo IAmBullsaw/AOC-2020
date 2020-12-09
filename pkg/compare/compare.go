@@ -1,5 +1,7 @@
 package compare
 
+import "math"
+
 type Bounds int
 
 const (
@@ -59,4 +61,20 @@ func MaxFloat(a, b float64) float64 {
 		return a
 	}
 	return b
+}
+
+func MaxInts(ints []int) (max int) {
+	max = ints[0]
+	for _, n := range ints {
+		max = int(math.Max(float64(max), float64(n)))
+	}
+	return
+}
+
+func MinInts(ints []int) (min int) {
+	min = ints[0]
+	for _, n := range ints {
+		min = int(math.Min(float64(min), float64(n)))
+	}
+	return
 }
