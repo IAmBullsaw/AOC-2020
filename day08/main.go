@@ -34,7 +34,7 @@ func Solve(instructions []com.Instruction) int {
 }
 
 // solutionLvl1 return answers for level 1
-func solutionLvl1(puzzle string) (answer int) {
+func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 	instructions := []com.Instruction{}
 	data := strings.Fields(puzzle)
 	for i := 0; i < len(data); i += 2 {
@@ -79,18 +79,14 @@ func Solve2(instructions []com.Instruction) int {
 				return c.Acc
 			} else {
 				c.Reset(true, true)
-				continue
 			}
-		}
-
-		if in.Operation == "nop" {
+		} else if in.Operation == "nop" {
 			c.ChangeInstructionOperation(i, "jmp")
 			c.Solve(req)
 			if c.Status["exit"] == 0 {
 				return c.Acc
 			} else {
 				c.Reset(true, true)
-				continue
 			}
 		}
 	}
@@ -99,7 +95,7 @@ func Solve2(instructions []com.Instruction) int {
 }
 
 // solutionLvl2 return answers for level 2
-func solutionLvl2(puzzle string) (answer int) {
+func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
 	instructions := []com.Instruction{}
 	data := strings.Fields(puzzle)
 	for i := 0; i < len(data); i += 2 {
@@ -110,6 +106,9 @@ func solutionLvl2(puzzle string) (answer int) {
 	return Solve2(instructions)
 }
 
+var lvl1Parameters = map[string]int{}
+var lvl2Parameters = map[string]int{}
+
 func main() {
-	execution.Run(solutionLvl1, solutionLvl2, testcases)
+	execution.Run(solutionLvl1, lvl1Parameters, solutionLvl2, lvl2Parameters, testcases)
 }
