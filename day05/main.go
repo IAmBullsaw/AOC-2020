@@ -28,7 +28,7 @@ func col(bp string) int {
 }
 
 // solutionLvl1 return answers for level 1
-func solutionLvl1(puzzle string) (answer int) {
+func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 	bps := ip.ToSlice(puzzle)
 
 	for _, bp := range bps {
@@ -79,7 +79,7 @@ func makeRange(min, max int) []int {
 }
 
 // solutionLvl2 return answers for level 2
-func solutionLvl2(puzzle string) (answer int) {
+func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
 	bps := ip.ToSlice(puzzle)
 
 	seats := []Seat{}
@@ -93,7 +93,6 @@ func solutionLvl2(puzzle string) (answer int) {
 		if i >= len(seats) {
 			break
 		}
-		fmt.Println(i, seats[i], seatId)
 		if seats[i].Id != seatId {
 			if diff := seats[i].Id - seats[i-1].Id; diff == 2 || diff == -2 {
 				answer = seatId
@@ -105,6 +104,9 @@ func solutionLvl2(puzzle string) (answer int) {
 	return
 }
 
+var lvl1Parameters = map[string]int{}
+var lvl2Parameters = map[string]int{}
+
 func main() {
-	execution.Run(solutionLvl1, solutionLvl2, testcases)
+	execution.Run(solutionLvl1, lvl1Parameters, solutionLvl2, lvl2Parameters, testcases)
 }
