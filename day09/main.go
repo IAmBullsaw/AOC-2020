@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 
 	cmp "github.com/IAmBullsaw/AOC-2020/pkg/compare"
@@ -76,7 +75,6 @@ func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 			break
 		}
 	}
-	fmt.Println("lvl1", answer)
 	return
 }
 
