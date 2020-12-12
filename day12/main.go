@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"math"
 	"strconv"
 	"strings"
 
@@ -9,31 +9,51 @@ import (
 	g "github.com/IAmBullsaw/AOC-2020/pkg/grid"
 )
 
+const (
+	North = 0
+	East  = 90
+	South = 180
+	West  = 270
+)
+
+func dirStr(d int) string {
+	n := map[int]string{0: "N", 90: "E", 180: "S", 270: "W"}
+	return n[int(math.Abs(float64(d)))]
+}
+
+func dir(f int) int {
+	if f < 0 {
+		return 360 + f
+	}
+	return f
+}
+
 // solutionLvl1 return answers for level 1
 func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
-	face := 270
+	face := East
 	start := g.NewCoordinate(0, 0)
 	pos := g.NewCoordinate(0, 0)
 
 	for _, d := range strings.Fields(puzzle) {
 		action := d[0]
 		val, _ := strconv.Atoi(d[1:])
-		fmt.Println(pos)
 
 		if action == 'F' {
-			fmt.Printf("F -> ")
-			if deg := face % 360; deg == 0 {
-				action = 'E'
-			} else if deg := face % 360; deg == 90 || deg == -90 {
+			switch dir(face) {
+			case North:
 				action = 'N'
-			} else if deg := face % 360; deg == 180 || deg == -180 {
-				action = 'W'
-			} else if deg := face % 360; deg == 270 || deg == -270 {
+				break
+			case East:
+				action = 'E'
+				break
+			case South:
 				action = 'S'
+				break
+			case West:
+				action = 'W'
+				break
 			}
-			fmt.Println(string(action))
 		}
-		fmt.Println("Action", string(action), val)
 		if action == 'N' {
 			pos = pos.Up(val)
 		} else if action == 'S' {
@@ -43,9 +63,9 @@ func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 		} else if action == 'W' {
 			pos = pos.Left(val)
 		} else if action == 'L' {
-			face += val
+			face = (face - val) % 360
 		} else if action == 'R' {
-			face -= val
+			face = (face + val) % 360
 		}
 	}
 
@@ -59,16 +79,12 @@ func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
 	wp := g.NewCoordinate(10, 1)
 
 	for _, d := range strings.Fields(puzzle) {
-		fmt.Println("WP Before:", wp)
 		action := d[0]
 		val, _ := strconv.Atoi(d[1:])
-		if action == 'F' {
-			diff := wp.Subtract(pos)
-			fmt.Println(" F Before:", pos, wp, diff)
 
-			pos = g.NewCoordinate(diff.X()*val+pos.X(), diff.Y()*val+pos.Y())
-			wp = pos.Add(diff)
-			fmt.Println(" F After: ", pos, wp, diff)
+		if action == 'F' {
+			pos.X = pos.X + (wp.X * val)
+			pos.Y = pos.Y + (wp.Y * val)
 		}
 		if action == 'N' {
 			wp = wp.Up(val)
@@ -79,20 +95,20 @@ func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
 		} else if action == 'W' {
 			wp = wp.Left(val)
 		} else if action == 'L' {
-			if wp.X() > 0 && wp.Y() > 0 || wp.X() < 0 && wp.Y() < 0 {
-				wp = g.NewCoordinate(wp.X()*-1, wp.Y())
-			} else { //if wp.X() > 0 && wp.Y() < 0 || wp.X() < 0 && wp.Y() > 0 {
-				wp = g.NewCoordinate(wp.X(), wp.Y()*-1)
+			turns := val / 90
+			for turns > 0 {
+				wp.X, wp.Y = wp.Y*-1, wp.X
+				turns--
 			}
 		} else if action == 'R' {
-			if wp.X() > 0 && wp.Y() > 0 || wp.X() < 0 && wp.Y() < 0 {
-				wp = g.NewCoordinate(wp.X(), wp.Y()*-1)
-			} else { //if wp.X() > 0 && wp.Y() < 0 || wp.X() < 0 && wp.Y() > 0 {
-				wp = g.NewCoordinate(wp.X()*-1, wp.Y())
+			turns := val / 90
+			for turns > 0 {
+				wp.X, wp.Y = wp.Y, wp.X*-1
+				turns--
 			}
 		}
-		fmt.Println("WP After:  ", wp)
 	}
+
 	return start.ManhattanDistance(pos)
 }
 
