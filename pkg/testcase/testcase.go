@@ -16,9 +16,17 @@ func (tcs TestCases) Execute(solutionLvl1 func(string, map[string]int) int, solu
 	totalPass = true
 	for i, test := range tcs {
 		fmt.Println("Test case:", i+1)
-		resultLvl1 := solutionLvl1(test.Input, test.Parameters)
-		resultLvl2 := solutionLvl2(test.Input, test.Parameters)
-		lvl1, expectedLvl1, lvl2, expectedLvl2 := fmt.Sprint(resultLvl1), fmt.Sprint(test.ExpectedLvl1), fmt.Sprint(resultLvl2), fmt.Sprint(test.ExpectedLvl2)
+		var resultLvl1, resultLvl2 int
+		expectedLvl1, expectedLvl2 := fmt.Sprint(test.ExpectedLvl1), fmt.Sprint(test.ExpectedLvl2)
+		if expectedLvl1 != "" {
+			resultLvl1 = solutionLvl1(test.Input, test.Parameters)
+		}
+		if expectedLvl2 != "" {
+			resultLvl2 = solutionLvl2(test.Input, test.Parameters)
+		}
+
+		lvl1, lvl2 := fmt.Sprint(resultLvl1), fmt.Sprint(resultLvl2)
+
 		passedLvl1 := lvl1 == expectedLvl1 || expectedLvl1 == ""
 		passedLvl2 := lvl2 == expectedLvl2 || expectedLvl2 == ""
 		passed := passedLvl1 && passedLvl2

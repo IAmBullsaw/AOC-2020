@@ -5,16 +5,16 @@ import (
 )
 
 var testcases = tc.TestCases{
-	// 	{
-	// 		Input: `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
-	// mem[8] = 11
-	// mem[7] = 101
-	// mem[8] = 0
-	// `,
-	// 		Parameters:   map[string]int{},
-	// 		ExpectedLvl1: `165`,
-	// 		ExpectedLvl2: ``,
-	// 	},
+	{
+		Input: `mask = XXXXXXXXXXXXXXXXXXXXXXXXXXXXX1XXXX0X
+mem[8] = 11
+mem[7] = 101
+mem[8] = 0
+`,
+		Parameters:   map[string]int{},
+		ExpectedLvl1: `165`,
+		ExpectedLvl2: ``,
+	},
 	{
 		Input: `mask = 000000000000000000000000000000X1001X
 mem[42] = 100
