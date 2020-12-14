@@ -1,5 +1,5 @@
 YEARVAR=$(date "+%Y")
-DAYVAR=15 #$(date "+%d")
+DAYVAR=$(date "+%d")
 # Insert your paths
 PYPATH=
 AOCURLPATH=
