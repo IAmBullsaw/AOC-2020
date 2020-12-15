@@ -7,7 +7,7 @@ import (
 )
 
 // solutionLvl1 return answers for level 1
-func solutionLvl1(puzzle string) (answer int) {
+func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 	for _, data := range strings.Split(puzzle, "\n\n") {
 		set := map[rune]bool{}
 		for _, values := range strings.Fields(data) {
@@ -22,7 +22,7 @@ func solutionLvl1(puzzle string) (answer int) {
 }
 
 // solutionLvl2 return answers for level 2
-func solutionLvl2(puzzle string) (answer int) {
+func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
 	for _, data := range strings.Split(puzzle, "\n\n") {
 		set := map[rune]int{}
 		size := 0
@@ -41,6 +41,9 @@ func solutionLvl2(puzzle string) (answer int) {
 	return
 }
 
+var lvl1Parameters = map[string]int{}
+var lvl2Parameters = map[string]int{}
+
 func main() {
-	execution.Run(solutionLvl1, solutionLvl2, testcases)
+	execution.Run(solutionLvl1, lvl1Parameters, solutionLvl2, lvl2Parameters, testcases)
 }

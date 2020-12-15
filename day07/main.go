@@ -60,7 +60,7 @@ func count(rules map[string][]BagPair, name string) (count int) {
 }
 
 // solutionLvl1 return answers for level 1
-func solutionLvl1(puzzle string) (answer int) {
+func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 	rules := make(map[string][]BagPair)
 	for _, line := range strings.Split(puzzle, "\n") {
 		fields := strings.Fields(line)
@@ -88,7 +88,7 @@ func countAll(rules map[string]BagPairs, parents map[string]BagPairs, target str
 }
 
 // solutionLvl2 return answers for level 2
-func solutionLvl2(puzzle string) (answer int) {
+func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
 	parents := make(map[string]BagPairs)
 	rules := make(map[string]BagPairs)
 	for _, line := range strings.Split(puzzle, "\n") {
@@ -112,6 +112,9 @@ func solutionLvl2(puzzle string) (answer int) {
 	return countAll(rules, parents, "shinygold") - 1
 }
 
+var lvl1Parameters = map[string]int{}
+var lvl2Parameters = map[string]int{}
+
 func main() {
-	execution.Run(solutionLvl1, solutionLvl2, testcases)
+	execution.Run(solutionLvl1, lvl1Parameters, solutionLvl2, lvl2Parameters, testcases)
 }
