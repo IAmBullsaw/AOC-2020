@@ -7,8 +7,8 @@ import (
 	"github.com/IAmBullsaw/AOC-2020/pkg/inp"
 )
 
-// solution_lvl1 return answers for level 1
-func solution_lvl1(puzzle string) (answer int) {
+// solutionLvl1 return answers for level 1
+func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 	inp := inp.ToInts(puzzle)
 	sort.Ints(inp)
 
@@ -30,8 +30,8 @@ func solution_lvl1(puzzle string) (answer int) {
 	return
 }
 
-// solution_lvl2 return answers for level 2
-func solution_lvl2(puzzle string) (answer int) {
+// solutionLvl2 return answers for level 2
+func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
 	inp := inp.ToInts(puzzle)
 	sort.Ints(inp)
 	answer = -1
@@ -58,6 +58,9 @@ func solution_lvl2(puzzle string) (answer int) {
 	return
 }
 
+var lvl1Parameters = map[string]int{}
+var lvl2Parameters = map[string]int{}
+
 func main() {
-	execution.Run(solution_lvl1, solution_lvl2, testcases)
+	execution.Run(solutionLvl1, lvl1Parameters, solutionLvl2, lvl2Parameters, testcases)
 }
