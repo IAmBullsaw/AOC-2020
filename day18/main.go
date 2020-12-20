@@ -49,6 +49,20 @@ func precByte(char byte) int {
 	}
 }
 
+func precOper2(char rune) int {
+	return precByte2(byte(char))
+}
+
+func precByte2(char byte) int {
+	if char == byte('+') {
+		return 2
+	} else if char == byte('*') {
+		return 1
+	} else {
+		return 0
+	}
+}
+
 func evaluateExpr(expr string) int {
 	operands := []rune{}
 	values := []int{}
@@ -98,6 +112,55 @@ func evaluateExpr(expr string) int {
 	}
 	return values[len(values)-1]
 }
+func evaluateExpr2(expr string) int {
+	operands := []rune{}
+	values := []int{}
+	i := 0
+	for i < len(expr) {
+		if expr[i] == ' ' || unicode.IsSpace(rune(expr[i])) {
+			i++
+			continue
+		} else if expr[i] == '(' {
+			operands = append(operands, '(')
+			i++
+			continue
+		} else if unicode.IsDigit(rune(expr[i])) {
+			value := 0
+			for i < len(expr) && unicode.IsDigit(rune(expr[i])) {
+				v, _ := strconv.Atoi(string(expr[i]))
+				value = (value * 10) + v
+				i++
+			}
+			values = append(values, value)
+			i--
+		} else if expr[i] == ')' {
+			for len(operands) != 0 && operands[len(operands)-1] != '(' {
+				rhs := pop(&values)
+				lhs := pop(&values)
+				op := popRune(&operands)
+				values = append(values, evaluate(lhs, op, rhs))
+			}
+			popRune(&operands)
+		} else {
+			for len(operands) != 0 &&
+				precOper2(operands[len(operands)-1]) >= precByte2(expr[i]) {
+				rhs := pop(&values)
+				lhs := pop(&values)
+				op := popRune(&operands)
+				values = append(values, evaluate(lhs, op, rhs))
+			}
+			operands = append(operands, rune(expr[i]))
+		}
+		i++
+	}
+	for len(operands) != 0 {
+		rhs := pop(&values)
+		lhs := pop(&values)
+		op := popRune(&operands)
+		values = append(values, evaluate(lhs, op, rhs))
+	}
+	return values[len(values)-1]
+}
 
 // solutionLvl1 return answers for level 1
 func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
@@ -111,6 +174,11 @@ func solutionLvl1(puzzle string, parameters map[string]int) (answer int) {
 
 // solutionLvl2 return answers for level 2
 func solutionLvl2(puzzle string, parameters map[string]int) (answer int) {
+	for _, line := range strings.Split(puzzle, "\n") {
+		if line != "" {
+			answer += evaluateExpr2(line)
+		}
+	}
 	return
 }
 
